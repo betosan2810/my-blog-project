@@ -51,7 +51,7 @@ def login():
     # Tạo JWT token
     token = jwt.encode(
         {
-            "sub": user.id,
+            "sub": str(user.id),
             "iat": datetime.utcnow(),
             "exp": datetime.utcnow() + timedelta(hours=24),  # Token hết hạn sau 24 giờ
         },
