@@ -27,9 +27,11 @@ def create_app(config_class=Config):
     from .api.posts import posts_bp
     from .api.auth import auth_bp
     from .api.media import media_bp
+    from .api.reactions import reactions_bp
 
     app.register_blueprint(posts_bp, url_prefix="/api/posts")
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(media_bp, url_prefix="/api/media")
+    app.register_blueprint(reactions_bp, url_prefix="/api/reactions")
 
     return app

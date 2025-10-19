@@ -33,3 +33,19 @@ class PostImage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(400), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+
+
+class Reaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(
+        db.String(20), nullable=False
+    )  # "like", "love", "haha", "sad", etc.
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+
+    user = db.relationship("User", backref="reactions")
+    post = db.relationship("Post", backref="reactions")
+
+    __table_args__ = (
+        db.UniqueConstraint("user_id", "post_id", name="unique_user_post_reaction"),
+    )
